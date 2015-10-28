@@ -134,4 +134,65 @@
 							
 
 			 }
-			 
+			 function displayscan(){
+			 		var scanform = "";
+			 		scanform = "<input type='button' value='Scan Code' onclick='scan()' >"
+					$ ("#display").html(scanform);
+
+			 }
+
+			function scan(){
+				cordova.plugins.barcodeScanner.scan(
+			      function (result) {
+			          // alert("Value is\n" +
+			          //       "Result: " + result.text + "\n" +
+			          //       "Format: " + result.format + "\n" +
+			          //       "Cancelled: " + result.cancelled);
+			              
+			         var scanresult = "";
+			         scanresult = "Product id: " + result.text;
+			         $ ("#display").html(scanresult);
+			      }, 
+			      function (error) {
+			          alert("Scanning failed: " + error);
+			      }
+			   );
+			}
+
+
+			function getProduct(product_id){
+				$ ( document ).ready ( function ( )
+		            {
+		 
+					   var url = "http://cs.ashesi.edu.gh/~csashesi/class2016/christian-biassey-bogart/MobileWeb/midsem_miniproj/controller.php?cmd=5&product_id="+product_id;
+		               var obj = sendRequest (url);
+					
+						
+		                if ( obj.result === 1 )
+		                {
+							   
+							var i = 0;
+							var products ="";
+							
+							for ( ; i < obj.products.length; i++ )
+		                    {
+							
+							products += " <tr> <td>"+obj.products[i].pos_product_id+"</td> <td>"+obj.products[i].pos_product_name+"</td> <td>"+obj.products[i].pos_product_qty+"</td> <td>"+obj.products[i].pos_product_price+"</td> </tr> ";
+							}
+							
+							
+		                    $ ( "#products_table" ).html (products);
+
+		                    $ ("#display").html("");
+
+
+		                    //$ ( "#add_panel" ).style.visibility = 'hidden';
+		                 }
+						 else{
+							  $ ( "#status" ).text ( "Found no products in stock" );
+						 
+						 }
+					
+		            });
+
+			}
