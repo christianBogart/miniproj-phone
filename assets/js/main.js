@@ -141,23 +141,6 @@
 
 			 }
 
-			function scan(){
-				cordova.plugins.barcodeScanner.scan(
-			      function (result) {
-			          // alert("Value is\n" +
-			          //       "Result: " + result.text + "\n" +
-			          //       "Format: " + result.format + "\n" +
-			          //       "Cancelled: " + result.cancelled);
-			              
-			         var scanresult = "";
-			         scanresult = "Product id: " + result.text;
-			         $ ("#display").html(scanresult);
-			      }, 
-			      function (error) {
-			          alert("Scanning failed: " + error);
-			      }
-			   );
-			}
 
 
 			function getProduct(product_id){
@@ -196,3 +179,25 @@
 		            });
 
 			}
+
+			 
+
+			function scan(){
+				cordova.plugins.barcodeScanner.scan(
+			      function (result) {
+			          // alert("Value is\n" +
+			          //       "Result: " + result.text + "\n" +
+			          //       "Format: " + result.format + "\n" +
+			          //       "Cancelled: " + result.cancelled);
+			              
+			         var scanresult = "";
+			         scanresult = "Product id: " + result.text;
+			         $ ("#display").html(scanresult);
+			         getProduct(result.text);
+			      }, 
+			      function (error) {
+			          alert("Scanning failed: " + error);
+			      }
+			   );
+			}
+
